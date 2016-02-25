@@ -1,0 +1,51 @@
+    <link href="<?php echo PUBLIC_PATH ?>css/diseno/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="<?php echo PUBLIC_PATH ?>css/diseno/css/font-awesome.css" rel="stylesheet" />
+    <link href="<?php echo PUBLIC_PATH ?>css/diseno/css/style.css" rel="stylesheet" />
+	<link href="<?php echo PUBLIC_PATH ?>css/diseno/css/gestion.css" rel="stylesheet">
+	<script src="<?php echo PUBLIC_PATH ?>javascript/diseno/js/menu.js"></script>
+    <section class="menu-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+					<ul class="nav nav-tabs" id="menu-top" role="tablist">                  
+						<!-- <li role="presentation" class="active"><a href="#">Inicio</a></li> -->
+						<li role="presentation"><a href="#perfil" aria-controls="Perfil" role="tab" data-toggle="tab">Perfil</a></li>
+						<li role="presentation"><a href="#miembros" aria-controls="Miembros" role="tab" data-toggle="tab">Miembros</a></li>
+						<li role="presentation"><a href="#clases" aria-controls="Clases" role="tab" data-toggle="tab">Clases</a></li>
+						<li role="presentation"><a href="#mensajes" aria-controls="Mensajes" role="tab" data-toggle="tab">Mensajes</a></li>
+						<li role="presentation"><a href="#noticias" aria-controls="Noticias" role="tab" data-toggle="tab">Noticias</a></li>
+						<li role="presentation"><a href="#contacto" aria-controls="Contacto" role="tab" data-toggle="tab">Contacto</a></li>
+						<?php if (Auth::is_valid()): ?>
+								<li role="presentation"><a href="<?php echo PUBLIC_PATH ?>usuario/logout">Cerrar Sesion</a></li>		
+						<?php endif ?>
+					</ul>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <style type="text/css">
+		a{
+			color:white;
+		}
+		li .active a {
+			color:black !important;
+		}
+    </style>
+<script type="text/javascript">
+		$(document).ready(function(){
+			// var url = document.location.toString();
+			// if (url.match('#')) {
+			// } 
+			$('#menu-top a[href="#clases"]').tab('show')
+			// // Change hash for page-reload
+			$('.nav-tabs a').on('shown.bs.tab', function (e) {
+			    window.location.hash = e.target.hash;
+			})
+			
+		})
+</script>
+
+                 

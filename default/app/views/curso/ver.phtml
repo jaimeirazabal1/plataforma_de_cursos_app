@@ -1,0 +1,36 @@
+<div class="page-header">
+	<h1>Ver Curso "<?php echo $curso->nombre ?>"</h1>
+</div>
+<?php View::content() ?>
+
+<table class="table">
+	<thead>
+	
+		<th>Nombre</th>
+		<th>Url</th>
+		<th>Descripcion</th>
+		<th>Creado</th>
+	</thead>
+	<?php foreach ($orden as $key => $value): ?>
+		<tr>
+			<td><?php echo $value->nombre ?></td>
+			<td>
+			<?php if ($value->tipo == 'YOUTUBE'): ?>
+				<?php echo $value->url ?>
+			<?php endif ?>
+			
+			</td>
+			<td><?php echo $value->descripcion ?></td>
+			<td><?php echo $value->creado ?></td>
+		</tr>
+	<?php endforeach ?>
+
+</table>
+<?php echo Html::link('curso/','Volver',"class='btn btn-danger'") ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('iframe').css("width","200");
+		$('iframe').css("height","150");
+		
+	})
+</script>

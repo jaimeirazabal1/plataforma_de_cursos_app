@@ -1,0 +1,9 @@
+<div class="page-header">
+	<h1>Pago Realizado</h1>
+</div>
+<?php View::content() ?>
+
+<div class="alert alert-success">
+	Pago Realizo con exito!
+	Con el usuario <?php echo Auth::get('nombre').', email:'.Auth::get('email') ?>
+</div>

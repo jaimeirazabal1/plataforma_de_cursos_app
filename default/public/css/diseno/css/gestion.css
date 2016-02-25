@@ -1,0 +1,45 @@
+.margen-abajo-input{
+	margin-bottom: 10px;
+}
+
+.label-input{
+	margin-top: 5px;
+	padding-right: 0px;
+	margin-right: 0px;
+}
+
+.resultados tr:nth-child(2n+1){
+/*para los colores de las filas impares*/
+background-color: #d9edf7;
+}
+.resultados tr:nth-child(2n){
+/*para los colores de las filas pares*/
+background:#ffffff; 
+}
+
+.resultados td{
+	padding-bottom:0px;
+	padding-top:10px;
+}
+
+
+.lapso2 {
+    font-size: 24px;
+    text-align: center;
+    background-color: darkblue;
+    color: white;
+    padding: 0px;
+    margin-bottom: 10px;
+}
+
+
+
+.lapso {
+    margin: 0px;
+    font-size: 20px;
+    text-align: center;
+    margin-left: 4%;
+    margin-bottom: 5px;
+    height: 28px;
+    padding: 0px;
+}

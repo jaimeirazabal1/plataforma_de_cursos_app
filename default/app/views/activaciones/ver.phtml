@@ -1,0 +1,34 @@
+<div class="page-header">
+	<h1>Ver activaciones de <?php echo $usuario->nombre ?></h1>
+</div>
+<?php View::content() ?>
+<?php echo Html::link('activaciones/',"Atras","class='btn btn-danger'") ?>
+<?php echo Html::link('activaciones/Habilitar/'.$usuario->id,"Habilitar","class='btn btn-success'") ?>
+<table class="table">
+	<thead>
+		<th>Nombre de Curso</th>
+		<th>Nombre Recurso</th>
+		<th>Tipo Recurso</th>
+		<th>Descripcion Recurso</th>
+		<th></th>
+		<th></th>
+	</thead>
+	<?php foreach ($activaciones as $key => $value): ?>
+		<tr>
+			<td><?php echo $value->nombre_curso ?></td>
+			<td><?php echo $value->nombre_recurso ?></td>
+			<td><?php echo $value->tipo_recurso ?></td>
+			<td><?php echo $value->descripcion_recurso ?></td>
+			<td><?php echo $value->url ?></td>
+			<td><?php echo js::link("activaciones/eliminar/{$value->id_activacion}","<span class='glyphicon glyphicon-remove'></span>","Esta Seguro?","btn btn-danger btn-xs") ?></td>
+		</tr>
+	<?php endforeach ?>
+</table>
+<?php echo Tag::js('jquery/jquery.kumbiaphp.min') ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('iframe').css("width","150");
+		$('iframe').css("height","100");
+		
+	})
+</script>

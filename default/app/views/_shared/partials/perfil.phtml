@@ -1,0 +1,17 @@
+<div role="tabpanel" class="tab-pane fade active" id="perfil">
+  <?php echo Form::openMultipart() ?>
+      <div class="form-group">
+        <label for="">Imagen de Usuario</label><br>
+        <label for="">Ingrese una imagen .jpg , .gif ó .png :</label>          
+        <?php echo Form::file('archivo') ?>
+        <?php echo Form::hidden('imagen_perfil', NULL, '1') //para saber si se envió el form ?>
+      </div>
+      <?php echo Form::submit('subir',"class='btn btn-default'") ?>
+  <?php echo Form::close() ?>
+  <hr>
+  <ul class="list-group">
+    <li class="list-group-item"><span class="badge">Nombre</span><?php echo ucfirst(Auth::get("nombre")) ?></li>
+    <li class="list-group-item"><span class="badge">Email</span><?php echo ucfirst(Auth::get("email")) ?></li>
+    <li class="list-group-item"><span class="badge">Fecha de Creacion</span><?php echo ucfirst(Auth::get("creado")) ?></li>
+  </ul>
+</div>

@@ -1,0 +1,18 @@
+<div class="page-header">
+	<h1>Lista de Usuarios</h1>
+</div>
+<?php View::content() ?>
+<table class="table">
+	<thead>
+		<td>Nombre</td>
+		<td>Email</td>
+		<td>Creado</td>
+	</thead>
+	<?php foreach ($usuarios as $key => $value): ?>
+		<tr>
+			<td><?php echo $value->nombre ?></td>
+			<td><?php echo $value->email ?></td>
+			<td><?php echo $value->creado ?></td>
+		</tr>
+	<?php endforeach ?>
+</table>

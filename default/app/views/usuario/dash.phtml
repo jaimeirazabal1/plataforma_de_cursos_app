@@ -1,0 +1,36 @@
+<div class="navbar navbar-inverse set-radius-zero">
+    <div class="container" style="margin-left:0px;">
+        <div class="navbar-header" style="width:100%;">
+                <img src="<?php echo PUBLIC_PATH ?>css/diseno/img/logo.png" style="width:120px;height:120px;margin-top:11px;float:right;" />
+      <div class="media-left" href="#" style="padding-bottom:30px;padding-top:30px;text-decoration:none;color:#ffffff;font-size:20px;">
+      <?php if (isset($foto_usuario)): ?>
+        <img src="<?php echo PUBLIC_PATH.$foto_usuario->url ?>" alt="" class="img-rounded" style="width:80px;height:80px;border-radius:50%;" />
+      <?php else: ?>
+        <img src="<?php echo PUBLIC_PATH ?>img/perfil.png" alt="PERFIL" id="imagen_perfil">
+      <?php endif ?>
+      <?php if (Auth::is_valid()): ?>
+        <span><?php echo Auth::get('nombre') ?></span>
+      <?php endif; ?>
+        <a href="#" style="color:#000;font-size:14px;position:absolute;">Cerrar Sesión</a>
+      </div>
+        </div>
+    </div>
+</div>
+<?php View::partial('menu') ?>
+<hr>
+<div class="container">
+  <div class="tab-content">
+      <?php View::partial('perfil') ?>
+      <!-- panel de miembros -->
+      <?php View::partial('miembros') ?>
+      <!-- panel de clases -->
+      <?php View::partial('clases',false,array('gratuitos'=>$gratuitos)) ?>
+      <!-- panel de mensajes -->
+      <?php View::partial('mensajes',false,array('mensajes'=>$mensajes)) ?>
+      <!-- panel de noticias -->    
+      <?php View::partial('noticias') ?>
+      <!-- panel de contacto -->    
+      <?php View::partial('contacto') ?>
+  </div>      
+</div>
+<?php echo Tag::js('utils') ?>

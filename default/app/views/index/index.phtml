@@ -1,0 +1,43 @@
+<div class="container">
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    <?php echo Tag::css('captura') ?>
+    
+  
+
+
+    <div class="titulo_principal">
+          <center>
+            <h1>Curso GRATUITO de <br>
+            PODERES MENTALES!!!
+            </h1>
+          </center>
+    </div>
+        <div class="loginmodal-container">
+          <center>
+            <h3>Accede a tu curso ya!!
+          Solo rellena el siguiente
+          Formulario para enviarte tus
+          datos de acceso</h3>
+          </center>
+          <?php View::content() ?>
+          <?php if (isset($success) and $success): ?>
+            <div class="alert alert-success">
+              <?php echo 'Puedes ingresar con estos datos <a href="'.$link_ingreso.'">AQUI</a>' ?>
+            </div>
+          <?php endif ?>
+          <?php echo Form::open() ?>
+            <input type="text" name="nombre" placeholder="Nombre...">
+            <input type="text" name="correo" placeholder="Correo Electronico">
+            <input type="submit" name="login" class="login loginmodal-submit" style="background-color:#b88601" value="Ingresa">
+          </form>
+
+        </div>
+      </div>
+          
+
+    </div>
+    <div class="col-md-4"></div>
+</div>
+</div>

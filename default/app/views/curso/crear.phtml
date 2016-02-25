@@ -1,0 +1,47 @@
+<div class="page-header">
+	<h1>Crear Curso</h1>
+</div>
+<?php View::content() ?>
+<div class="row">
+
+	<div class="col-md-12">
+		<?php echo Form::open() ?>
+		<div class="form-group">
+			<label for="">Nombre</label>
+			<?php echo Form::text("curso.nombre","class='form-control' placeholder='Nombre de Curso'") ?>
+		</div>
+		<div class="form-group">
+			<label for="">Modulo</label>
+			<?php echo Form::dbselect("curso.modulo_id",null,null,"Seleccione","class='form-control'") ?>
+		</div>
+		<div class="ordenes">
+			
+		</div>
+		<?php echo Form::submit("Crear","class='btn btn-success' id='btn'") ?>
+		<?php echo Html::link("curso/","Volver","class='btn btn-danger'") ?>
+		<?php echo Form::close() ?>
+
+	</div>
+
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#btn").prop("disabled",true)
+		$("#curso_modulo_id").change(function(){
+			var modulo = $(this).val();
+			if (modulo) {
+
+				$.ajax({
+					url:'../recurso/de_modulo_ajax/'+modulo,
+					success:function(html){
+						$(".ordenes").html(html);
+						$("#btn").prop("disabled",false)
+					}
+				})
+			}else{
+				$("#btn").prop("disabled",true)
+				$(".ordenes").html("");
+			}
+		})
+	})
+</script>

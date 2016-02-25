@@ -1,0 +1,25 @@
+<div class="page-header">
+	<h1>Boton de Pago de modulo # <?php echo $modulo->id ?>|<?php echo $modulo->nombre ?></h1>
+</div>
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+<?php View::content() ?>
+		<?php echo Form::open() ?>
+			<?php echo Form::hidden("boton_pago.id") ?>
+			<div class="form-group">
+				<label for="">Descripcion</label>
+				<?php echo Form::textarea('boton_pago.descripcion',"class='form-control'") ?>
+			</div>
+			<div class="form-group">
+				<label for="">Codigo de Boton</label>
+				<?php echo Form::textarea('boton_pago.boton',"class='form-control'") ?>
+			</div>
+				<?php echo Form::hidden('boton_pago.modulo_id',null,$modulo->id) ?>
+				<?php echo Form::hidden('boton_pago.usuario_id',null,Auth::get('id')) ?>
+			<?php echo Form::submit("Guardar","class='btn btn-default'") ?>
+			<?php echo Html::link("modulo/lists","Volver","class='btn btn-danger'") ?>
+		<?php echo Form::close() ?>
+	</div>
+	<div class="col-md-4"></div>
+</div>

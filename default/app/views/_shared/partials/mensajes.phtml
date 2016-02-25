@@ -1,0 +1,54 @@
+<div role="tabpanel" class="tab-pane fade" id="mensajes">
+  <?php if ($mensajes and count($mensajes)): ?>
+    <div class="media" style="height:500px;overflow-y:scroll">
+      <?php foreach ($mensajes as $key => $value): ?>
+        <?php if ($value->creado_por == Auth::get('id')): ?>
+          <div class="pull-right">
+          <?php else: ?>
+            <div class="media-left media-middle">
+            <?php endif ?>
+            <a href="#">
+              <?php if (Load::model("usuario_admin")->esAdmin($value->creado_por)): ?>
+                <img src="<?php echo PUBLIC_PATH ?>img/icono_admin.png" class='media-object' width="60" alt="no image">
+
+              <?php else: ?>
+                <?php $imagen = Load::model('fotos_usuario')->getLast($value->creado_por) ?>
+                <?php if (isset($imagen->url) and file_exists(PUBLIC_PATH.$imagen->url)): ?>
+                  <img src="<?php echo PUBLIC_PATH.$imagen->url ?>" class='media-object' width="60" alt="no image">
+                <?php else: ?>
+                  <img src="<?php echo PUBLIC_PATH ?>img/perfil.png" class='media-object' width="60" alt="no image">
+
+                <?php endif ?>
+              <?php endif ?>
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading"><?php echo $value->asunto ?></h4>
+            <p>
+              <?php $creado_nombre = Load::model("usuario")->find($value->creado_por) ?>
+              <span class="badge"><b>Escrito por:</b> <?php echo $creado_nombre->nombre ?></span>
+            </p>
+            <p>
+              <?php echo $value->mensaje ?>
+            </p>
+          </div>
+          <hr>
+        <?php endforeach ?>
+      </div>
+    <?php else: ?>
+      <center>
+        <h2>Sin mensajes que leer</h2>
+      </center>
+    <?php endif ?>
+    <hr>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      Enviar Mensaje
+    </button>
+    <hr>
+    <!-- Modal -->
+    <?php View::partial("modal_nuevo_mensaje") ?>
+
+
+  </div>
+</div>

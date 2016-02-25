@@ -1,0 +1,58 @@
+<div class="page-header">
+	<?php if (Router::get("action") == 'editar'): ?>
+	<h1>Editar Recurso</h1>
+	<?php else: ?>
+	<h1>Crear Recurso a modulo <?php echo $modulo->nombre ?></h1>
+	<?php endif ?>
+</div>
+<?php View::content() ?>
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<?php echo Form::openMultipart() ?>
+		<div class="form-group">
+			<label>Nombre</label>
+			<?php echo Form::hidden('recurso.id') ?>
+			<?php echo Form::text("recurso.nombre","class='form-control'") ?>
+			<input type="hidden" name="recurso[modulo_id]" value="<?php echo $modulo->id ?>">
+		</div>
+		<div class="form-group">
+			<label>Descripcion</label>
+			<?php echo Form::textarea("recurso.descripcion","class='form-control'") ?>
+		</div>
+		<div class="form-group">
+			<label for="">Tipo de Recurso</label>
+			<?php echo Form::select('recurso.tipo',array('YOUTUBE'=>'Video de youtube','VIDEO'=>'Subir Video','HTML'=>'Html'),"class='form-control'") ?>
+			
+		</div>
+		<div class="form-group" id="div_url">
+			<?php echo Form::textarea("recurso.url","class='form-control'") ?>
+		</div>
+
+		<?php echo Form::submit("Guardar","class='btn btn-success'") ?>
+		<?php echo Html::link("modulo/lists","Volver","class='btn btn-danger'") ?>
+		<?php echo Form::close() ?>
+	</div>
+	<div class="col-md-4"></div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var textareahtml = "<textarea name='recurso[url]' id='recurso_url' class='form-control'></textarea>";
+		$("#recurso_tipo").change(function(){
+			if ($(this).val() == 'YOUTUBE') {
+				$("#div_url").html(textareahtml);
+				$("#recurso_url").prop("placeholder","Codigo de YouTube")
+			}else if($(this).val() == 'HTML'){
+				$("#div_url").html(textareahtml);
+				$("#recurso_url").prop("placeholder","Codigo HTML")
+			}else{
+				var fileinput="<input type='file' name='archivo'><input type='hidden' name='recurso[url]'>"
+				$("#div_url").html(fileinput);
+			}
+		})
+		<?php if(Router::get("action")!='editar'): ?>
+
+			$("#recurso_tipo").change();
+		<?php endif; ?>
+	})
+</script>

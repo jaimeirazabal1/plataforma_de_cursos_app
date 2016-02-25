@@ -1,0 +1,42 @@
+<div class="page-header">
+	<h1>Recursos de modulo <?php echo $modulo->nombre ?></h1>
+</div>
+<?php View::content() ?>
+<table class="table">
+	<thead>
+		<th>Orden</th>
+		<th>Nombre</th>
+		<th>Url</th>
+		<th>Descripcion</th>
+		<th>Creado</th>
+	</thead>
+	<?php foreach ($recursos as $key => $value): ?>
+		<tr>
+			<td><input type="number" style="width:60px" required name="recurso[<?php echo $value->id ?>]" class="form-control" placeholder="N.o"></td>
+			<td><?php echo $value->nombre ?></td>
+			<td>
+			<?php if ($value->tipo == 'YOUTUBE'): ?>
+				<?php echo $value->url ?>
+			<?php elseif($value->tipo == 'VIDEO'): ?>
+				<video src="<?php echo PUBLIC_PATH.$value->url ?>" width="200" height="150" controls></video>
+			<?php else: ?>
+				<div style="width:200px;height:150px">
+					<?php echo $value->url ?>
+				</div>
+			<?php endif ?>
+				
+			</td>
+			<td><?php echo $value->descripcion ?></td>
+			<td><?php echo $value->creado ?></td>
+		</tr>
+	<?php endforeach ?>
+
+</table>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('iframe').css("width","200");
+		$('iframe').css("height","150");
+		
+	})
+</script>

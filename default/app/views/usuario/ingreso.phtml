@@ -1,0 +1,48 @@
+
+	    <link href="<?php echo PUBLIC_PATH ?>css/diseno/css/style.css" rel="stylesheet">
+
+		
+	  <div id="login-page">
+	  <div class="row">
+	  	<div class="col-md-4">	</div>
+	  	<div class="col-md-4">
+		  	<!-- <div class="container"> -->
+			      <div class="form-login">
+			      
+			        <h2 class="form-login-heading">
+				        <div class="redondo" style="background-color: white;border-radius: 50%; width:100px;padding:20px">
+				        	
+				        	<img src="<?php echo PUBLIC_PATH ?>img/logo_poder3000.png" alt="no image" style="width:60px" >
+				        </div>
+			        	<div class="texto">Inicie Sesión</div>
+			        </h2>
+
+			        <div class="login-wrap">
+			        <?php View::content() ?>
+			        <?php echo Form::open() ?>
+			            <input type="text" class="form-control" placeholder="Email" name="email" autofocus>
+			            <br>
+			            <input type="password" class="form-control" name="password" placeholder="Contraseña" style="margin-bottom:10px;">
+			            <button class="btn btn-theme btn-block" name="ingresar" value="INGRESAR" href="#" type="submit">INGRESAR</button>
+			            <br>
+			            	<?php echo Html::link("index/index","Registrese") ?>
+					  </div>
+			        <?php echo Form::close() ?>
+
+			      </div>	  	
+		  	<!-- </div> -->
+	  		
+	  		
+	  	</div>
+	  	<div class="col-md-4"></div>
+	  </div>
+	  </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>javascript/diseno/js/jquery.backstretch.min.js"></script>
+    <script>
+        $.backstretch("<?php echo PUBLIC_PATH ?>css/diseno/img/bglogin.jpg", {speed: 500});
+    </script>
+
+
+

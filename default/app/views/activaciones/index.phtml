@@ -1,0 +1,10 @@
+<div class="page-header">
+	<h1>Activaciones</h1>
+</div>
+<?php View::content() ?>
+<?php foreach ($activaciones as $key => $value): ?>
+	<tr>
+		<td><?php echo $value->nombre ?> - <?php echo $value->email ?></td>
+		<td><?php echo Html::link("activaciones/ver/{$value->id}","Ver","class='btn btn-default btn-xs'") ?></td>
+	</tr>
+<?php endforeach ?>

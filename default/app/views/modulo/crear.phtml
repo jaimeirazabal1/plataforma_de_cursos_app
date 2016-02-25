@@ -1,0 +1,27 @@
+<div class="page-header">
+	<h1>Crear Modulo</h1>
+</div>
+
+<?php View::content() ?>
+
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<?php echo Form::open() ?>
+		<div class="form-group">
+			<label>Nombre de Modulo</label>
+			<?php echo Form::text("modulo.nombre","class='form-control'") ?>
+		</div>
+		<div class="form-group">
+			<label>Tipo de Modulo</label>
+			<select name="modulo[publico]" id="" class="form-control">
+				<option value="1">Publico</option>
+				<option value="0">De pago</option>
+			</select>
+		</div>
+		<?php echo Form::submit('Crear','class="btn btn-success"') ?>
+		<?php echo Html::link('modulo/lists','Volver','class="btn btn-danger"') ?>
+		<?php echo Form::close() ?>
+	</div>
+	<div class="col-md-4"></div>
+</div>

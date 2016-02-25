@@ -1,0 +1,158 @@
+
+<?php /*si es publico y es el primer video, se deja ver automaticamente y si no esta el registro en la base de datos se registra*/ ?>
+<?php $recursos_del_curso = unserialize($curso[0]->orden); ?>
+<?php $recurso_usuario_habilitado = Load::model('recurso_usuario_habilitado'); ?>
+<?php $recursos = Load::model('recurso') ?>
+	<?php asort($recursos_del_curso) ?>
+
+	<?php $recursos_del_curso = array_flip($recursos_del_curso) ?>
+
+
+<?php /*
+	$key : es el orden en el que esta el recurso
+	$value : es el id del recurso
+*/ ?>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div class="page-header">
+			<h1>Ver Curso</h1>
+		<?php echo Html::link('usuario/dash',"Volver","class='btn btn-danger'") ?>
+		</div>
+		<ul class="list-group">
+		<?php foreach ($recursos_del_curso as $key => $value): ?>
+			<?php /*todo esto lo debe hacer automatico*/ ?>
+			<?php if ($curso[0]->publico): ?>
+
+				<?php 
+				/*si es el primer video*/
+				if ($key == 1): ?>
+				<li class="list-group-item">
+					<?php if (isset($recursos_del_curso[$key+1])): ?>		
+				    	<span class="badge btn-success btn-xs btn peticion-siguiente publico"  id="<?php echo "curso=".$curso[0]->id."&modulo=".$curso[0]->modulo_id."&orden=".($key+1)."&recurso=".$recursos_del_curso[$key+1]."&usuario=".Auth::get('id') ?>"><?php echo Html::img('spin.gif','no image','class="cargando" style="width:20px;display:none"') ?>  Quiero ver el siguiente video <span class='glyphicon glyphicon-ok'></span></span>
+					<?php else: ?>
+						<?php $cursos_gratis=Load::model("curso")->getCursosGratisPorOrden() ?>
+
+						<?php $cursos_pagos=Load::model("curso")->getCursosPagosPorOrden() ?>
+						<?php /*si hay solo un curso gratis entonces muestra el boton del pago del siguiente modulo, si no muestra el siguiente curso gratis*/ ?>
+						<?php if (count($cursos_gratis) > 1): ?>
+							<?php $curso_siguiente = $cursos_gratis[1] ?>
+							<?php $arreglo=unserialize($cursos_gratis[1]->orden) ?>
+							<?php asort($arreglo) ?>
+							<?php $arreglo = array_flip($arreglo) ?>
+							<?php $recursos_este=$arreglo ?>
+					
+							<span class="badge btn-success btn-xs btn peticion-siguiente publico"  id="<?php echo "curso=".$cursos_gratis[1]->id."&modulo=".$cursos_gratis[1]->modulo_id."&orden=1&recurso=".$recursos_este[1]."&usuario=".Auth::get('id') ?>">Estoy interesado en mas <span class='glyphicon glyphicon-star-empty'></span></span>
+						<?php else: ?>
+							<?php if ($cursos_pagos): ?>
+								<div class="pull-right">
+								<?php echo $cursos_pagos[0]->boton ?>
+								<br>
+								</div>
+							<?php endif ?>
+						<?php endif ?>
+					<?php endif ?>
+ 
+					<?php /*habilita el primer recurso. Si ya esta en la base de datos solo le pone un uno a habilitado si no, lo crea con el 1 habilitado igualmente*/ ?>
+					<?php $recurso_usuario_habilitado->habilitarRecurso($curso[0]->id,$value,Auth::get('id')) ?>
+
+					<?php /*obteniendo el recurso para mostrarlo*/ ?>
+					<?php $recurso_ver=$recursos->find($value) ?>
+
+					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample<?php echo $key?>" aria-expanded="false" aria-controls="collapseExample">
+					  <?php echo ucfirst($recurso_ver->nombre) ?>
+					  <br>
+					  <br>
+					</button>
+
+					<div class="collapse" id="collapseExample<?php echo $key?>">
+					<br>
+					<br>
+					  <div class="well">
+					    
+					    <?php if ($recurso_ver->tipo == "YOUTUBE"): ?>
+					    	<?php echo $recurso_ver->url ?>
+					    	<p>
+					    		<b>Descripcion:</b><br>
+					    		<?php echo $recurso_ver->descripcion ?>
+					    	</p>
+					    <?php endif ?>
+					  </div>
+					</div>
+				</li>
+				<?php else: ?>
+					<?php if ($recurso_usuario_habilitado->recursoHabilitado($curso[0]->id,$value,Auth::get('id'))): ?>
+					<li class="list-group-item">
+						<?php if (isset($recursos_del_curso[$key+1])): ?>		
+				    	<span class="badge btn-success btn-xs btn peticion-siguiente "  id="<?php echo "curso=".$curso[0]->id."&modulo=".$curso[0]->modulo_id."&orden=".($key+1)."&recurso=".$recursos_del_curso[$key+1]."&usuario=".Auth::get('id') ?>"><?php echo Html::img('spin.gif','no image','class="cargando" style="width:20px;display:none"') ?>  Quiero ver el siguiente video <span class='glyphicon glyphicon-ok'></span></span>
+						<?php else: ?>
+							<?php $cursos_pagos=Load::model("curso")->getCursosPagosPorOrden() ?>
+							<?php if ($cursos_pagos): ?>
+							<div class="pull-right">
+							<center>
+								Para ver el curso: <?php echo $cursos_pagos[0]->nombre ?> <br>
+							</center>
+							<?php echo $cursos_pagos[0]->boton ?>
+							<br>
+							</div>
+							<?php endif ?>
+				    		<!-- <span class="badge btn-success btn-xs btn peticion-modulo publico"  id="">Estoy interesado en mas <span class='glyphicon glyphicon-star-empty'></span></span> -->
+					
+						<?php endif ?>
+
+						<?php /*obteniendo el recurso para mostrarlo*/ ?>
+						<?php $recurso_ver=$recursos->find($value) ?>
+
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample<?php echo $key?>" aria-expanded="false" aria-controls="collapseExample">
+						  <?php echo ucfirst($recurso_ver->nombre) ?>
+						  <br><br>
+						</button>
+
+						<div class="collapse" id="collapseExample<?php echo $key?>">
+						<br>
+						<br>
+						  <div class="well">
+						    
+						    <?php if ($recurso_ver->tipo == "YOUTUBE"): ?>
+						    	<?php echo $recurso_ver->url ?>
+						    	<p>
+						    		<b>Descripcion:</b><br>
+						    		<?php echo $recurso_ver->descripcion ?>
+						    	</p>
+						    <?php endif ?>
+						  </div>
+						</div>						
+					</li>
+					<?php endif ?>
+				<?php endif ?>
+			
+			<?php else: ?>
+				<?php /*CUANDO EL CURSO ES DE PAGO*/ ?>
+			<?php endif ?>
+		<?php endforeach ?>
+		<ul>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('iframe').css("width","200");
+		$('iframe').css("height","150");
+		$(".peticion-siguiente").click(function(){
+			var params = $(this).attr('id');
+			var publico = $(this).hasClass('publico');
+
+			$('.cargando').css('display','block');
+			$.ajax({
+				url:"../../peticion/peticion_siguiente_curso?"+params,
+				success:function(r){
+					$('.cargando').css('display','none');
+					if (r.response && r.publico == "1") {
+						location.reload(1);
+					}
+					console.log(r)
+				}
+			})
+		})
+	})
+</script>

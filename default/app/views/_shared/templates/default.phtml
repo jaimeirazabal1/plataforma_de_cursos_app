@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+  <meta charset=<?= APP_CHARSET ?> >
+  <title>Plataforma Cursos</title>
+  <?php Tag::css('bootstrap/css/bootstrap.min') ?>
+
+  <?= Html::includeCss() ?>
+  <?php echo Tag::js('jquery/jquery-1.12.0.min') ?>
+  <?php echo Tag::js('bootstrap/js/bootstrap.min') ?>
+</head>
+<body>
+
+<?php View::content() ?>
+
+</body>
+</html>

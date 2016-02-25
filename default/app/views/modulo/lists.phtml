@@ -1,0 +1,86 @@
+<?php echo Tag::js('jquery/jquery.kumbiaphp.min') ?>
+<div class="page-header">
+	<h1>Lista de Modulos</h1>
+	<div class="spin" style='display:none'>
+		<?php echo Html::img('spin.gif') ?> Cargando...
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+	<center>
+		<p class="alert alert-info">
+			El orden de los modulos se mantendra a la hora que los clientes avances en sus cursos y aparecera en forma consecutiva en conjunto con su boton de pago en caso de ser curso pago...
+		</p>
+	</center>
+		<?php View::content() ?>
+		<table class="table">
+			<thead>
+				<th>Orden</th>
+				<th>Nombre de modulo</th>
+				<th>Es publico</th>
+				<th>Accion</th>
+			</thead>
+			
+			<?php foreach ($modulos as $key => $value): ?>
+				<tr>
+					<td><input type="text" style="width:40px" class="input_orden" id="<?php echo $value->id ?>" value="<?php echo $value->orden ?>"></td>
+					<td><input type="text" value="<?php echo $value->nombre ?>"  id="<?php echo $value->id ?>" class="nombre_modulo"></td>
+					<td>
+						<?php if ($value->publico): ?>
+							Si
+							<!-- <input type="checkbox" checked name="modulo[publico]" value='1' class="check_modulo" id="<?php// echo $value->id ?>"> -->
+						<?php else: ?>
+							NO - 
+							<?php echo Html::link("boton/crear/{$value->id}","boton de pago","class='btn btn-warning btn-xs'") ?>
+							<!-- <input type="checkbox" checked name="modulo[publico]" value='0' class="check_modulo" id="<?php //echo $value->id ?>"> -->
+						<?php endif ?>
+					</td>
+					<td>
+						<?php echo Html::link("recurso/crear/{$value->id}","Crear Recurso","class='btn btn-success btn-xs'") ?>
+						<?php echo Html::link("recurso/de_modulo/{$value->id}","Ver Recursos",'class="btn btn-default btn-xs"') ?>
+						<?php echo Js::link("modulo/eliminar/{$value->id}","<span class='glyphicon glyphicon-remove'></span>","Esta seguro de borrar el modulo?","btn btn-danger btn-xs") ?>
+					</td>
+				</tr>
+			<?php endforeach ?>
+			<tr>
+				<td colspan="4">
+					<center>
+						<?php echo Html::link('modulo/crear','Crear Modulo',"class='btn btn-success'") ?>
+					</center>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".nombre_modulo").blur(function(){
+			$(".spin").css("display","block");
+			$.ajax({
+				url:'editar_nombre/'+$(this).attr("id")+"/"+$(this).val(),
+				success:function(r){
+					$(".spin").css("display","none");
+
+					if (!r) {
+						console.log('Error editando el nombre del modulo');
+					}
+				}
+			})
+		})
+		$(".input_orden").blur(function(){
+			$(".spin").css("display","block");
+			$.ajax({
+				url:'editar_orden/'+$(this).attr("id")+"/"+$(this).val(),
+				success:function(r){
+					$(".spin").css("display","none");
+
+					if (!r) {
+						console.log('Error editando el nombre del modulo');
+					}
+				}
+			})			
+		})
+	})
+</script>

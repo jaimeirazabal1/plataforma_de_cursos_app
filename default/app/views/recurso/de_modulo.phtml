@@ -1,0 +1,67 @@
+<div class="page-header">
+	<h1>Recursos de modulo <?php echo $modulo->nombre ?></h1>
+</div>
+<?php View::content() ?>
+<table class="table">
+	<thead>
+		<th>Nombre</th>
+		<th>Url</th>
+		<th>Descripcion</th>
+		<th>Creado</th>
+		<th></th>
+	</thead>
+	<?php foreach ($recursos as $key => $value): ?>
+		<tr>
+			<td><?php echo $value->nombre ?></td>
+			<td>
+			<?php if ($value->tipo == 'YOUTUBE'): ?>
+				<?php echo $value->url ?>
+			<?php elseif($value->tipo == 'VIDEO'): ?>
+				<video src="<?php echo PUBLIC_PATH.$value->url ?>" width="200" height="150" controls></video>
+			<?php endif ?>
+			
+			</td>
+			<td><?php echo $value->descripcion ?></td>
+			<td><?php echo $value->creado ?></td>
+			<td><?php echo Html::link("recurso/editar/{$value->id}/{$value->modulo_id}","Editar","class='btn btn-default btn-xs'") ?></td>
+		</tr>
+	<?php endforeach ?>
+
+</table>
+
+<?php echo Html::link("modulo/lists","Volver modulos","class='btn btn-danger'") ?>
+
+    <?php echo Tag::js('jquery.dataTables') ?>
+    <?php echo Tag::js('dataTables.bootstrap.min') ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('iframe').css("width","200");
+		$('iframe').css("height","150");
+		$(".table").DataTable({
+			language:{
+			    "sProcessing":     "Procesando...",
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			    "sZeroRecords":    "No se encontraron resultados",
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			    "sInfoPostFix":    "",
+			    "sSearch":         "Buscar:",
+			    "sUrl":            "",
+			    "sInfoThousands":  ",",
+			    "sLoadingRecords": "Cargando...",
+			    "oPaginate": {
+			        "sFirst":    "Primero",
+			        "sLast":     "Último",
+			        "sNext":     "Siguiente",
+			        "sPrevious": "Anterior"
+			    },
+			    "oAria": {
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			    }
+			}
+		});
+	})
+</script>

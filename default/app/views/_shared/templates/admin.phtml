@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+  <meta charset=<?= APP_CHARSET ?> >
+  <title>Plataforma Cursos</title>
+  <?php Tag::css('bootstrap/css/bootstrap.min') ?>
+  <?php Tag::css('sidebar') ?>
+  <?php Tag::css('dataTables.bootstrap.min') ?>
+  <?= Html::includeCss() ?>
+  <?php echo Tag::js('jquery/jquery-1.12.0.min') ?>
+
+  <?php echo Tag::js('bootstrap/js/bootstrap.min') ?>
+</head>
+<body>
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Poder3000
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo PUBLIC_PATH ?>modulo/lists">Modulos</a>
+                </li>
+                <li>
+                    <a href="<?php echo PUBLIC_PATH ?>curso/">Cursos</a>
+                </li>
+                <li>
+                    <a href="<?php echo PUBLIC_PATH ?>mensaje/">Mis Mensajes</a>
+                </li>
+                <li>
+                    <a href="<?php echo PUBLIC_PATH ?>activaciones/">Activaciones</a>
+                </li>
+                <li>
+                    <a href="<?php echo PUBLIC_PATH ?>usuario/">Usuarios</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <?php echo Html::link('usuario/logout','Cerrar Sesion') ?>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <?php View::content() ?>
+                        <hr>
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+   
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+
+</body>
+</html>
